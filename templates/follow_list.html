@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SocialSphere | Connections</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --fb-bg: #f0f2f5;             /* Your clean app body background */
+            --fb-card: #ffffff;           /* Container white background */
+            --fb-text-primary: #050505;   /* Crisp black text */
+            --fb-text-secondary: #65676b; /* Muted gray subtext */
+            --fb-hover: #f2f2f2;          /* Light hover/tap background */
+            --fb-divider: #e4e6eb;        /* Clean separator line */
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--fb-bg);
+            color: var(--fb-text-primary);
+            padding: 20px 12px;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* --- APP WRAPPER --- */
+        .app-container {
+            max-width: 650px;
+            margin: 0 auto;
+            background-color: var(--fb-card);
+            border-radius: 8px;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+            padding: 16px;
+        }
+
+        /* --- STYLISH HEADER --- */
+        .app-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 16px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid var(--fb-divider);
+        }
+
+        .header-meta-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--fb-text-primary);
+        }
+
+        .back-nav-link {
+            text-decoration: none;
+            color: var(--fb-text-secondary);
+            font-size: 14px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 14px;
+            border-radius: 6px;
+            background-color: var(--fb-hover);
+            transition: background 0.2s, color 0.2s;
+        }
+
+        .back-nav-link:hover {
+            background-color: #e4e6eb;
+            color: var(--fb-text-primary);
+        }
+
+        /* --- STREAM LIST --- */
+        .connections-list {
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* --- VERTICAL STREAM ROW --- */
+        .list-row-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 4px;
+            border-bottom: 1px solid var(--fb-divider);
+            transition: background-color 0.15s;
+        }
+
+        .list-row-item:last-child {
+            border-bottom: none;
+        }
+
+        .row-identity-anchor {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            text-decoration: none;
+            color: inherit;
+            flex-grow: 1;
+            min-width: 0;
+        }
+
+        /* --- CIRULAR PROFILE PICTURE FRAMES --- */
+        .avatar-circle-frame {
+            width: 64px; 
+            height: 64px;
+            border-radius: 50%; /* Pure Circle Layout */
+            overflow: hidden;
+            background-color: #e4e6eb;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .avatar-circle-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .avatar-placeholder {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--fb-text-secondary);
+        }
+
+        .text-details {
+            display: flex;
+            flex-direction: column;
+            min-width: 0;
+        }
+
+        .display-fullname {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--fb-text-primary);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .display-fullname:hover {
+            text-decoration: underline;
+        }
+
+        .display-username {
+            font-size: 13px;
+            color: var(--fb-text-secondary);
+            margin-top: 2px;
+        }
+
+        /* --- THREE DOTS OPTION TRIGGER --- */
+        .more-options-trigger {
+            background: none;
+            border: none;
+            color: var(--fb-text-secondary);
+            font-size: 18px;
+            padding: 12px;
+            cursor: pointer;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.2s, color 0.2s;
+            text-decoration: none;
+        }
+
+        .more-options-trigger:hover {
+            background-color: var(--fb-hover);
+            color: var(--fb-text-primary);
+        }
+
+        .empty-list-state {
+            text-align: center;
+            padding: 48px 16px;
+            color: var(--fb-text-secondary);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="app-container">
+        
+        <div class="app-header">
+            <h1 class="header-meta-title">
+                {% if is_following_page %}{{ user_profile.username }}'s Following{% else %}{{ user_profile.username }}'s Followers{% endif %}
+            </h1>
+            <a href="{% url 'profile' user_profile.id %}" class="back-nav-link">
+                <i class="fa-solid fa-arrow-left"></i> Back to Profile
+            </a>
+        </div>
+
+        <div class="connections-list">
+            {% for profile in connections %}
+            <div class="list-row-item">
+                
+                <a href="{% url 'profile' profile.user.id %}" class="row-identity-anchor">
+                    <div class="avatar-circle-frame">
+                        {% if profile.profile_picture %}
+                            <img src="{{ profile.profile_picture.url }}" alt="{{ profile.user.username }}">
+                        {% else %}
+                            <div class="avatar-placeholder">{{ profile.user.username|slice:":1"|upper }}</div>
+                        {% endif %}
+                    </div>
+                    <div class="text-details">
+                        <span class="display-fullname">
+                            {% if profile.user.get_full_name %}{{ profile.user.get_full_name }}{% else %}{{ profile.user.username }}{% endif %}
+                        </span>
+                        <span class="display-username">@{{ profile.user.username }}</span>
+                    </div>
+                </a>
+                
+                <a href="{% url 'profile' profile.user.id %}" class="more-options-trigger" title="View Options">
+                    <i class="fa-solid fa-ellipsis-h"></i>
+                </a>
+                
+            </div>
+            {% empty %}
+            <div class="empty-list-state">
+                <i class="fa-regular fa-user-group" style="font-size: 32px; margin-bottom: 8px; display: block; opacity: 0.6;"></i>
+                <p>No connections to show here yet.</p>
+            </div>
+            {% endfor %}
+        </div>
+
+    </div>
+
+</body>
+</html>

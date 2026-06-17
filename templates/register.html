@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SocialSphere - Sign Up</title>
+    <!-- FontAwesome for Premium Interface Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            /* Synchronized Platform Identity Tokens */
+            --brand-primary: #1877f2;
+            --brand-primary-hover: #166fe5;
+            --brand-success: #42b72a;
+            --brand-success-hover: #36a420;
+            
+            --bg-main: #f0f2f5;
+            --bg-card: #ffffff;
+            
+            --text-primary: #050505;
+            --text-secondary: #65676b;
+            --divider: #e4e6eb;
+            
+            --radius-main: 8px;
+            --card-shadow: 0 4px 12px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.08);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-main);
+            color: var(--text-primary);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px 16px;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* --- STACKED CENTERED MASTER WRAPPER --- */
+        .gateway-container {
+            width: 100%;
+            max-width: 416px; /* Aligns perfectly with the login card constraints */
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        /* --- TOP SIDE: BRAND CONTENT PLATFORM --- */
+        .brand-pitch-panel {
+            text-align: center;
+            padding: 0 8px;
+        }
+
+        .brand-logo-headline {
+            color: var(--brand-primary);
+            font-size: 42px;
+            font-weight: 800;
+            letter-spacing: -1.5px;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .brand-logo-headline i {
+            font-size: 38px;
+        }
+
+        .brand-subtext {
+            font-size: 16px;
+            font-weight: 500;
+            line-height: 1.45;
+            color: #1c1e21;
+            letter-spacing: -0.1px;
+        }
+
+        /* --- SECURE REGISTRATION CARD --- */
+        .auth-card-wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .secure-register-card {
+            background: var(--bg-card);
+            border-radius: var(--radius-main);
+            box-shadow: var(--card-shadow);
+            padding: 24px 20px;
+            border: 1px solid rgba(0,0,0,0.01);
+        }
+
+        .card-header-meta {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .card-header-meta h2 {
+            font-size: 20px;
+            font-weight: 800;
+            letter-spacing: -0.3px;
+            color: var(--text-primary);
+        }
+
+        .card-header-meta p {
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin-top: 4px;
+        }
+
+        /* Modern Stacked Form Inputs */
+        .form-input-wrapper {
+            position: relative;
+            margin-bottom: 14px;
+        }
+
+        .form-input-wrapper i {
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-secondary);
+            font-size: 16px;
+            width: 18px;
+            text-align: center;
+            pointer-events: none;
+            transition: color 0.2s;
+        }
+
+        .premium-text-field {
+            width: 100%;
+            padding: 14px 16px 14px 46px;
+            font-family: inherit;
+            font-size: 15.5px;
+            border: 1px solid #ccd0d5;
+            border-radius: 6px;
+            outline: none;
+            background-color: #ffffff;
+            color: var(--text-primary);
+            transition: all 0.2s ease;
+        }
+
+        .premium-text-field::placeholder {
+            color: #90949c;
+        }
+
+        /* Interactive Focus Highlights */
+        .premium-text-field:focus {
+            border-color: var(--brand-primary);
+            box-shadow: 0 0 0 2px rgba(24, 119, 242, 0.2);
+        }
+
+        .premium-text-field:focus + i {
+            color: var(--brand-primary);
+        }
+
+        /* Buttons & Layout Controls */
+        .btn-action-base {
+            width: 100%;
+            font-family: inherit;
+            font-weight: 700;
+            font-size: 16.5px;
+            padding: 12px 16px;
+            border-radius: 6px;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.15s ease, transform 0.1s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+        }
+
+        .btn-action-base:active {
+            transform: scale(0.99);
+        }
+
+        .btn-brand-success {
+            background-color: var(--brand-success);
+            color: #ffffff;
+            margin-top: 8px;
+        }
+
+        .btn-brand-success:hover {
+            background-color: var(--brand-success-hover);
+        }
+
+        .form-card-divider {
+            border: 0;
+            height: 1px;
+            background: var(--divider);
+            margin: 20px 0;
+        }
+
+        .login-switch-container {
+            display: flex;
+            justify-content: center;
+            padding-bottom: 2px;
+        }
+
+        .login-switch-link {
+            color: var(--brand-primary);
+            font-size: 14.5px;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .login-switch-link:hover {
+            text-decoration: underline;
+        }
+
+        /* Bottom Disclosure Policy Block */
+        .policy-agreement-text {
+            font-size: 11px;
+            color: var(--text-secondary);
+            line-height: 1.4;
+            text-align: center;
+            margin-top: 14px;
+        }
+
+        .policy-agreement-text a {
+            color: var(--brand-primary);
+            text-decoration: none;
+        }
+
+        .policy-agreement-text a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- STACKED LAYOUT GRID CONTAINER -->
+    <div class="gateway-container">
+        
+        <!-- VISUAL PANEL TOP: BRAND LOGO AND SUBTEXT -->
+        <header class="brand-pitch-panel">
+            <h1 class="brand-logo-headline">
+                <i class="fa-solid fa-earth-americas"></i> SocialSphere
+            </h1>
+            <p class="brand-subtext">
+                Connect with colleagues, build your tech profile, and see what's trending in your workspace sphere.
+            </p>
+        </header>
+
+        <!-- SECURE PANEL BOTTOM: REGISTRATION WORKSPACE CARD -->
+        <main class="auth-card-wrapper">
+            
+            <div class="secure-register-card">
+                
+                <div class="card-header-meta">
+                    <h2>Create a new account</h2>
+                    <p>It's quick and easy.</p>
+                </div>
+
+                <form method="POST" action="/register/">
+                    {% csrf_token %}
+                    
+                    <!-- Username Input Field -->
+                    <div class="form-input-wrapper">
+                        <input 
+                            type="text" 
+                            name="username" 
+                            class="premium-text-field" 
+                            placeholder="Username" 
+                            required 
+                            autocomplete="username"
+                        >
+                        <i class="fa-solid fa-user"></i>
+                    </div>
+
+                    <!-- Email Address Input Field -->
+                    <div class="form-input-wrapper">
+                        <input 
+                            type="email" 
+                            name="email" 
+                            class="premium-text-field" 
+                            placeholder="Email address" 
+                            required 
+                            autocomplete="email"
+                        >
+                        <i class="fa-solid fa-envelope"></i>
+                    </div>
+
+                    <!-- Password Secure Input Field -->
+                    <div class="form-input-wrapper">
+                        <input 
+                            type="password" 
+                            name="password" 
+                            class="premium-text-field" 
+                            placeholder="New password" 
+                            required 
+                            autocomplete="new-password"
+                        >
+                        <i class="fa-solid fa-lock"></i>
+                    </div>
+
+                    <!-- Platform Rules Disclaimer Statement -->
+                    <p class="policy-agreement-text">
+                        By clicking Sign Up, you agree to our <a href="#">Terms</a>, <a href="#">Privacy Policy</a> and <a href="#">Cookies Policy</a>.
+                    </p>
+
+                    <!-- Submission Command Trigger -->
+                    <button type="submit" class="btn-action-base btn-brand-success">Sign Up</button>
+                    
+                    <hr class="form-card-divider">
+
+                    <!-- Rapid Return Route back to Login System Container -->
+                    <div class="login-switch-container">
+                        <a href="/login/" class="login-switch-link">Already have an account? Log in instead</a>
+                    </div>
+
+                </form>
+            </div>
+
+        </main>
+
+    </div>
+
+</body>
+</html>

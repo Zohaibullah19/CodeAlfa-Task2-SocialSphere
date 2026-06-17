@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SocialSphere | Edit Profile</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            /* Synchronized Token Palette from Main Feed System */
+            --brand-primary: #1877f2;
+            --brand-primary-hover: #166fe5;
+            --bg-main: #f0f2f5;
+            --bg-card: #ffffff;
+            
+            /* Text & Accents */
+            --text-primary: #050505;
+            --text-secondary: #65676b;
+            --text-muted: #8a8d91;
+            --divider: #e4e6eb;
+            --hover-bg: #f2f2f2;
+            --input-bg: #f0f2f5;
+            
+            --radius-main: 10px;
+            --card-shadow: 0 1px 2px rgba(0, 0, 0, 0.08), 0 2px 4px rgba(0, 0, 0, 0.04);
+            --nav-height: 56px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-main);
+            color: var(--text-primary);
+            padding-top: var(--nav-height);
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* --- NAVBAR (Mirrored from Feed for platform stability) --- */
+        .navbar {
+            background: var(--bg-card);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: var(--nav-height);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+            z-index: 1000;
+            border-bottom: 1px solid var(--divider);
+        }
+
+        .navbar-brand {
+            color: var(--brand-primary);
+            font-size: 24px;
+            font-weight: 800;
+            text-decoration: none;
+            letter-spacing: -0.8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .navbar-links {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .nav-item {
+            color: var(--text-secondary);
+            text-decoration: none;
+            padding: 8px 14px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 14px;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-item:hover {
+            background-color: var(--hover-bg);
+            color: var(--brand-primary);
+        }
+
+        /* --- SETTINGS APP LAYOUT --- */
+        .settings-layout-wrapper {
+            max-width: 620px;
+            margin: 40px auto;
+            padding: 0 16px;
+        }
+
+        .settings-card {
+            background: var(--bg-card);
+            border-radius: var(--radius-main);
+            box-shadow: var(--card-shadow);
+            padding: 28px 32px;
+            border: 1px solid rgba(0,0,0,0.02);
+        }
+
+        .settings-header-block {
+            margin-bottom: 24px;
+            border-bottom: 1px solid var(--divider);
+            padding-bottom: 16px;
+        }
+
+        .settings-header-block h2 {
+            font-size: 24px;
+            font-weight: 800;
+            color: var(--text-primary);
+            letter-spacing: -0.5px;
+        }
+
+        .settings-header-block p {
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin-top: 4px;
+        }
+
+        /* --- FORM ARCHITECTURE --- */
+        .form-group-stack {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .input-label-element {
+            display: block;
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+
+        .premium-textarea {
+            width: 100%;
+            min-height: 110px;
+            background-color: var(--bg-main);
+            border: 1px solid var(--divider);
+            border-radius: 8px;
+            padding: 12px 16px;
+            font-family: inherit;
+            font-size: 15px;
+            color: var(--text-primary);
+            resize: vertical;
+            outline: none;
+            transition: all 0.2s ease;
+        }
+
+        .premium-textarea:focus {
+            background-color: #ffffff;
+            border-color: var(--brand-primary);
+            box-shadow: 0 0 0 1px var(--brand-primary);
+        }
+
+        /* --- CUSTOM UPLOAD FIELD --- */
+        .uploader-facade-container {
+            position: relative;
+            border: 2px dashed var(--divider);
+            border-radius: 8px;
+            padding: 24px;
+            text-align: center;
+            background-color: var(--bg-main);
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+
+        .uploader-facade-container:hover {
+            background-color: #e4e6eb;
+            border-color: var(--text-secondary);
+        }
+
+        .uploader-facade-container i {
+            font-size: 28px;
+            color: var(--brand-primary);
+            margin-bottom: 8px;
+        }
+
+        .uploader-facade-container p {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .uploader-facade-container span {
+            font-size: 12px;
+            color: var(--text-secondary);
+            display: block;
+            margin-top: 2px;
+        }
+
+        /* Hide the ugly native browser file input button completely */
+        .hidden-native-file-input {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+        /* --- ACTION BAR HUB --- */
+        .form-actions-row {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            gap: 12px;
+            margin-top: 28px;
+            border-top: 1px solid var(--divider);
+            padding-top: 20px;
+        }
+
+        .btn-base {
+            font-family: inherit;
+            font-weight: 600;
+            font-size: 14px;
+            padding: 10px 24px;
+            border-radius: 6px;
+            border: none;
+            cursor: pointer;
+            text-decoration: none;
+            transition: background-color 0.15s ease, transform 0.1s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .btn-base:active { transform: scale(0.98); }
+
+        .btn-primary-blue {
+            background-color: var(--brand-primary);
+            color: #ffffff;
+        }
+
+        .btn-primary-blue:hover {
+            background-color: var(--brand-primary-hover);
+        }
+
+        .btn-cancel-gray {
+            background-color: var(--divider);
+            color: var(--text-primary);
+        }
+
+        .btn-cancel-gray:hover {
+            background-color: #d8dadf;
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <a href="/" class="navbar-brand">
+            <i class="fa-solid fa-earth-americas"></i> SocialSphere
+        </a>
+        
+        <div class="navbar-links">
+            <a href="/" class="nav-item"><i class="fa-solid fa-house"></i> Feed</a>
+            <a href="/profile/{{ request.user.id }}/" class="nav-item"><i class="fa-solid fa-circle-user"></i> Profile</a>
+            <a href="/logout/" class="nav-item" style="color: #dc3545;"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
+        </div>
+    </nav>
+
+    <div class="settings-layout-wrapper">
+        <div class="settings-card">
+            
+            <div class="settings-header-block">
+                <h2>Edit Profile</h2>
+                <p>Update your personal biography statement and display banner image assets.</p>
+            </div>
+
+            <form method="POST" action="/edit-profile/" enctype="multipart/form-data">
+                {% csrf_token %}
+                
+                <div class="form-group-stack">
+                    
+                    <div>
+                        <label class="input-label-element" for="bio-textarea">Bio Headline</label>
+                        <textarea 
+                            id="bio-textarea" 
+                            name="bio" 
+                            class="premium-textarea" 
+                            placeholder="Tell the network about yourself..."
+                        >{% if user_profile.profile.bio %}{{ user_profile.profile.bio }}{% endif %}</textarea>
+                    </div>
+
+                    <div>
+                        <label class="input-label-element">Profile Avatar Image</label>
+                        <div class="uploader-facade-container" id="uploader-zone-avatar">
+                            <i class="fa-solid fa-images"></i>
+                            <p id="avatar-status-text">Click to browse or drop an avatar image file</p>
+                            <span>Supports JPEG, PNG, or WebP</span>
+                            <input 
+                                type="file" 
+                                name="profile_picture" 
+                                class="hidden-native-file-input" 
+                                id="avatar-file-input"
+                                accept="image/*"
+                                onchange="updateAvatarLabel()"
+                            >
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="input-label-element">Cover Banner Image (Facebook Aspect Ratio Layout)</label>
+                        <div class="uploader-facade-container" id="uploader-zone-cover">
+                            <i class="fa-solid fa-camera"></i>
+                            <p id="cover-status-text">Click to browse or drop a cover banner file</p>
+                            <span>Supports high-resolution widescreen image types</span>
+                            <input 
+                                type="file" 
+                                name="cover_photo" 
+                                class="hidden-native-file-input" 
+                                id="cover-file-input"
+                                accept="image/*"
+                                onchange="updateCoverLabel()"
+                            >
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="form-actions-row">
+                    <a href="/profile/{{ request.user.id }}/" class="btn-base btn-cancel-gray">Cancel</a>
+                    <button type="submit" class="btn-base btn-primary-blue">Save Profile</button>
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+
+    <script>
+        function updateAvatarLabel() {
+            const fileInput = document.getElementById('avatar-file-input');
+            const statusText = document.getElementById('avatar-status-text');
+            const uploadZone = document.getElementById('uploader-zone-avatar');
+            
+            if (fileInput.files.length > 0) {
+                statusText.innerText = "Selected Avatar: " + fileInput.files[0].name;
+                statusText.style.color = "var(--brand-primary)";
+                uploadZone.style.borderColor = "var(--brand-primary)";
+            }
+        }
+
+        function updateCoverLabel() {
+            const fileInput = document.getElementById('cover-file-input');
+            const statusText = document.getElementById('cover-status-text');
+            const uploadZone = document.getElementById('uploader-zone-cover');
+            
+            if (fileInput.files.length > 0) {
+                statusText.innerText = "Selected Cover: " + fileInput.files[0].name;
+                statusText.style.color = "var(--brand-primary)";
+                uploadZone.style.borderColor = "var(--brand-primary)";
+            }
+        }
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SocialSphere - Log In</title>
+    <!-- FontAwesome for Premium Interface Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            /* Synchronized Platform Identity Tokens */
+            --brand-primary: #1877f2;
+            --brand-primary-hover: #166fe5;
+            --brand-success: #42b72a;
+            --brand-success-hover: #36a420;
+            
+            --bg-main: #f0f2f5;
+            --bg-card: #ffffff;
+            
+            --text-primary: #050505;
+            --text-secondary: #65676b;
+            --divider: #e4e6eb;
+            
+            --radius-main: 8px;
+            --card-shadow: 0 4px 12px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.08);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-main);
+            color: var(--text-primary);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px 16px;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* --- STACKED CENTERED MASTER WRAPPER --- */
+        .gateway-container {
+            width: 100%;
+            max-width: 416px; /* Keeps the card and header completely uniform */
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        /* --- TOP SIDE: BRAND CONTENT PLATFORM --- */
+        .brand-pitch-panel {
+            text-align: center;
+            padding: 0 8px;
+        }
+
+        .brand-logo-headline {
+            color: var(--brand-primary);
+            font-size: 42px;
+            font-weight: 800;
+            letter-spacing: -1.5px;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .brand-logo-headline i {
+            font-size: 38px;
+        }
+
+        .brand-subtext {
+            font-size: 16px;
+            font-weight: 500;
+            line-height: 1.45;
+            color: #1c1e21;
+            letter-spacing: -0.1px;
+        }
+
+        /* --- SECURE ACCESS CARD --- */
+        .auth-card-wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .secure-login-card {
+            background: var(--bg-card);
+            border-radius: var(--radius-main);
+            box-shadow: var(--card-shadow);
+            padding: 20px;
+            border: 1px solid rgba(0,0,0,0.01);
+        }
+
+        /* Modern Stacked Form Inputs */
+        .form-input-wrapper {
+            position: relative;
+            margin-bottom: 14px;
+        }
+
+        .form-input-wrapper i {
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-secondary);
+            font-size: 16px;
+            width: 18px;
+            text-align: center;
+            pointer-events: none;
+            transition: color 0.2s;
+        }
+
+        .premium-text-field {
+            width: 100%;
+            padding: 14px 16px 14px 46px;
+            font-family: inherit;
+            font-size: 16px;
+            border: 1px solid #ccd0d5;
+            border-radius: 6px;
+            outline: none;
+            background-color: #ffffff;
+            color: var(--text-primary);
+            transition: all 0.2s ease;
+        }
+
+        .premium-text-field::placeholder {
+            color: #90949c;
+        }
+
+        /* Interactive Focus Highlights */
+        .premium-text-field:focus {
+            border-color: var(--brand-primary);
+            box-shadow: 0 0 0 2px rgba(24, 119, 242, 0.2);
+        }
+
+        .premium-text-field:focus + i {
+            color: var(--brand-primary);
+        }
+
+        /* Buttons & Component Links */
+        .btn-action-base {
+            width: 100%;
+            font-family: inherit;
+            font-weight: 700;
+            font-size: 17px;
+            padding: 12px 16px;
+            border-radius: 6px;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.15s ease, transform 0.1s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+        }
+
+        .btn-action-base:active {
+            transform: scale(0.99);
+        }
+
+        .btn-brand-blue {
+            background-color: var(--brand-primary);
+            color: #ffffff;
+            margin-top: 4px;
+        }
+
+        .btn-brand-blue:hover {
+            background-color: var(--brand-primary-hover);
+        }
+
+        .forgot-password-link {
+            display: block;
+            text-align: center;
+            color: var(--brand-primary);
+            font-size: 14px;
+            text-decoration: none;
+            margin: 16px 0;
+            font-weight: 500;
+        }
+
+        .forgot-password-link:hover {
+            text-decoration: underline;
+        }
+
+        .form-card-divider {
+            border: 0;
+            height: 1px;
+            background: var(--divider);
+            margin: 20px 0;
+        }
+
+        .registration-trigger-container {
+            display: flex;
+            justify-content: center;
+            padding-top: 4px;
+            padding-bottom: 6px;
+        }
+
+        .btn-success-green {
+            background-color: var(--brand-success);
+            color: #ffffff;
+            font-size: 15px;
+            padding: 11px 20px;
+            width: auto;
+        }
+
+        .btn-success-green:hover {
+            background-color: var(--brand-success-hover);
+        }
+
+        /* Tiny Bottom Disclaimer Metadata Block */
+        .bottom-disclaimer-text {
+            text-align: center;
+            font-size: 13.5px;
+            color: #1c1e21;
+            margin-top: 4px;
+        }
+
+        .bottom-disclaimer-text a {
+            color: var(--text-primary);
+            text-decoration: none;
+            font-weight: 700;
+        }
+
+        .bottom-disclaimer-text a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- STACKED LAYOUT GRID CONTAINER -->
+    <div class="gateway-container">
+        
+        <!-- VISUAL PANEL TOP: BRAND LOGO AND SUBTEXT FROM IMAGE -->
+        <header class="brand-pitch-panel">
+            <h1 class="brand-logo-headline">
+                <i class="fa-solid fa-earth-americas"></i> SocialSphere
+            </h1>
+            <p class="brand-subtext">
+                Connect with colleagues, build your tech profile, and see what's trending in your workspace sphere.
+            </p>
+        </header>
+
+        <!-- SECURE PANEL BOTTOM: LOGIN WORKSPACE CARD -->
+        <main class="auth-card-wrapper">
+            
+            <div class="secure-login-card">
+                <form method="POST" action="/login/">
+                    {% csrf_token %}
+                    
+                    <!-- Username Input -->
+                    <div class="form-input-wrapper">
+                        <input 
+                            type="text" 
+                            name="username" 
+                            class="premium-text-field" 
+                            placeholder="Username or email address" 
+                            required 
+                            autocomplete="username"
+                        >
+                        <i class="fa-solid fa-user"></i>
+                    </div>
+
+                    <!-- Password Input -->
+                    <div class="form-input-wrapper">
+                        <input 
+                            type="password" 
+                            name="password" 
+                            class="premium-text-field" 
+                            placeholder="Password" 
+                            required 
+                            autocomplete="current-password"
+                        >
+                        <i class="fa-solid fa-lock"></i>
+                    </div>
+
+                    <!-- Submission Command Trigger -->
+                    <button type="submit" class="btn-action-base btn-brand-blue">Log In</button>
+                    
+                    <!-- Password Recovery -->
+                    <a href="#" class="forgot-password-link">Forgot password?</a>
+                    
+                    <hr class="form-card-divider">
+
+                    <!-- Registration Pipeline Trigger -->
+                    <div class="registration-trigger-container">
+                        <a href="/register/" class="btn-action-base btn-success-green">Create New Account</a>
+                    </div>
+
+                </form>
+            </div>
+
+            <!-- Page Meta Link Attribution Row -->
+            <footer class="bottom-disclaimer-text">
+                <p><a href="#">Create a Page</a> for a celebrity, brand or business.</p>
+            </footer>
+
+        </main>
+
+    </div>
+
+</body>
+</html>

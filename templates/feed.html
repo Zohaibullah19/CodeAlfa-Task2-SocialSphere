@@ -1,0 +1,1089 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SocialSphere | Feed</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            /* Standard Mainstream Social Token Palette */
+            --brand-primary: #1877f2;
+            --brand-primary-hover: #166fe5;
+            --bg-main: #f0f2f5;
+            --bg-card: #ffffff;
+            
+            /* Text Hierarchy & Accents */
+            --text-primary: #050505;
+            --text-secondary: #65676b;
+            --text-muted: #8a8d91;
+            --divider: #e4e6eb;
+            --hover-bg: #f2f2f2;
+            --input-bg: #f0f2f5;
+            
+            /* Modern Layout Dynamics */
+            --radius-main: 10px;
+            --radius-inner: 20px;
+            --card-shadow: 0 1px 2px rgba(0, 0, 0, 0.08), 0 2px 4px rgba(0, 0, 0, 0.04);
+            --nav-height: 56px;
+
+            /* Dropdown Palette matched to reference image */
+            --dropdown-bg: #242526;
+            --dropdown-text: #e4e6eb;
+            --dropdown-hover: #3a3b3c;
+            --dropdown-divider: #3e4042;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-main);
+            color: var(--text-primary);
+            padding-top: var(--nav-height);
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* --- STABLE TOP NAVIGATION HUB --- */
+        .navbar {
+            background: var(--bg-card);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: var(--nav-height);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+            z-index: 1000;
+            border-bottom: 1px solid var(--divider);
+        }
+
+        .navbar-brand {
+            color: var(--brand-primary);
+            font-size: 24px;
+            font-weight: 800;
+            text-decoration: none;
+            letter-spacing: -0.8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .navbar-brand i {
+            font-size: 22px;
+        }
+
+        .navbar-links {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .nav-item {
+            color: var(--text-secondary);
+            text-decoration: none;
+            padding: 8px 14px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 14px;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            position: relative;
+        }
+
+        .nav-item:hover {
+            background-color: var(--hover-bg);
+            color: var(--brand-primary);
+        }
+
+        .nav-item.active {
+            color: var(--brand-primary);
+            background-color: rgba(24, 119, 242, 0.05);
+        }
+
+        .nav-user {
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+
+        /* Notification Badge Dynamic Styles */
+        .badge {
+            background-color: #f3425f;
+            color: white;
+            font-size: 11px;
+            font-weight: 700;
+            padding: 2px 6px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 14px;
+            height: 18px;
+        }
+
+        /* --- STRUCTURED RESPONSIVE VIEW GRID --- */
+        .app-layout {
+            max-width: 1150px;
+            margin: 24px auto;
+            display: grid;
+            grid-template-columns: 260px 1fr 280px;
+            gap: 24px;
+            padding: 0 16px;
+        }
+
+        @media (max-width: 1100px) {
+            .app-layout {
+                grid-template-columns: 1fr;
+                max-width: 640px;
+            }
+            .sidebar-left, .sidebar-right {
+                display: none;
+            }
+        }
+
+        /* --- COMPACT FLOATING SIDEBARS --- */
+        .sidebar-sticky-box {
+            position: sticky;
+            top: 80px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .sidebar-card {
+            background: var(--bg-card);
+            border-radius: var(--radius-main);
+            padding: 16px;
+            box-shadow: var(--card-shadow);
+            border: 1px solid rgba(0,0,0,0.02);
+        }
+
+        .sidebar-menu {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .sidebar-menu li a {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 12px;
+            color: var(--text-primary);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14.5px;
+            border-radius: 8px;
+            transition: background 0.2s;
+        }
+
+        .sidebar-menu li a div.menu-label-box {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .sidebar-menu li a:hover {
+            background: var(--hover-bg);
+        }
+
+        /* --- CENTERING FEED ARCHITECTURE --- */
+        .feed-container {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        /* --- CENTRAL POST INITIALIZATION CARD --- */
+        .creator-card {
+            background: var(--bg-card);
+            border-radius: var(--radius-main);
+            padding: 16px;
+            box-shadow: var(--card-shadow);
+            border: 1px solid rgba(0,0,0,0.02);
+        }
+
+        .creator-input-row {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            position: relative;
+        }
+
+        .avatar-container {
+            position: relative;
+            display: inline-block;
+            flex-shrink: 0;
+        }
+
+        .avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #cfd6e4, #9fa8b7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            color: #ffffff;
+            font-size: 15px;
+            overflow: hidden;
+            flex-shrink: 0;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Reference Match Plus Button badge over avatar */
+        .avatar-plus-btn {
+            position: absolute;
+            bottom: -2px;
+            right: -2px;
+            width: 18px;
+            height: 18px;
+            background-color: var(--brand-primary);
+            color: #ffffff;
+            border-radius: 50%;
+            border: 2px solid var(--bg-card);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            cursor: pointer;
+            transition: transform 0.15s ease;
+            z-index: 10;
+        }
+
+        .avatar-plus-btn:hover {
+            transform: scale(1.15);
+            background-color: var(--brand-primary-hover);
+        }
+
+        /* Action Dropdown Menu Container Style */
+        .action-dropdown-menu {
+            display: none;
+            position: absolute;
+            top: 48px;
+            left: 0;
+            background: var(--dropdown-bg);
+            min-width: 170px;
+            border-radius: 12px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+            z-index: 150px;
+            padding: 6px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            animation: menuFadeIn 0.15s ease-out;
+        }
+
+        .action-dropdown-menu.show {
+            display: block;
+        }
+
+        .action-dropdown-item {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            width: 100%;
+            padding: 10px 12px;
+            border: none;
+            background: transparent;
+            font-size: 15px;
+            font-weight: 500;
+            color: var(--dropdown-text);
+            text-align: left;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: background 0.15s;
+        }
+
+        .action-dropdown-item:hover {
+            background: var(--dropdown-hover);
+        }
+
+        .action-dropdown-item i {
+            font-size: 16px;
+            width: 20px;
+            text-align: center;
+        }
+
+        .creator-trigger {
+            flex: 1;
+            background: var(--input-bg);
+            border-radius: var(--radius-inner);
+            padding: 11px 18px;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 15px;
+            font-weight: 500;
+            transition: background 0.2s, color 0.2s;
+            border: 1px solid transparent;
+        }
+
+        .creator-trigger:hover {
+            background: #e4e6eb;
+            color: #595b5f;
+        }
+
+        /* --- REFINED SYSTEM POST CARDS --- */
+        .post-card {
+            background: var(--bg-card);
+            border-radius: var(--radius-main);
+            box-shadow: var(--card-shadow);
+            padding: 14px 16px;
+            border: 1px solid rgba(0,0,0,0.02);
+        }
+
+        .post-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+
+        .post-meta {
+            display: flex;
+            flex-direction: column;
+            gap: 1px;
+        }
+
+        .post-author {
+            color: var(--text-primary);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 15px;
+            transition: color 0.15s;
+        }
+
+        .post-author:hover {
+            color: var(--brand-primary);
+            text-decoration: underline;
+        }
+
+        .post-date {
+            color: var(--text-secondary);
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .post-content {
+            font-size: 15px;
+            line-height: 1.5;
+            color: var(--text-primary);
+            margin-bottom: 12px;
+            white-space: pre-wrap;
+            text-align: left;
+            word-break: break-word;
+        }
+
+        .post-media-container {
+            margin: 0 -16px 12px -16px;
+            background-color: #000000;
+            border-top: 1px solid rgba(0,0,0,0.03);
+            border-bottom: 1px solid rgba(0,0,0,0.03);
+            max-height: 520px;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .post-image {
+            width: 100%;
+            height: auto;
+            max-height: 520px;
+            object-fit: contain;
+            background-color: #fafafa;
+        }
+
+        .post-video {
+            width: 100%;
+            max-height: 520px;
+            outline: none;
+            display: block;
+            background-color: #000000;
+        }
+
+        .post-stats {
+            display: flex;
+            justify-content: space-between;
+            color: var(--text-secondary);
+            font-size: 13px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--divider);
+        }
+
+        .stat-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .stat-icon-badge {
+            width: 18px;
+            height: 18px;
+            background: var(--brand-primary);
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            color: #ffffff;
+            font-size: 9px;
+        }
+
+        .post-actions-row {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            padding: 4px 0;
+            border-bottom: 1px solid var(--divider);
+            margin-bottom: 12px;
+            gap: 4px;
+            position: relative;
+        }
+
+        .action-btn {
+            background: transparent;
+            border: none;
+            color: var(--text-secondary);
+            padding: 8px;
+            font-weight: 600;
+            font-size: 14px;
+            border-radius: 6px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: all 0.2s ease;
+            text-decoration: none;
+        }
+
+        .action-btn:hover {
+            background: var(--hover-bg);
+            color: var(--text-primary);
+        }
+
+        /* --- BRAND NEW SHARE DROPDOWN STYLES --- */
+        .share-container {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .share-dropdown-menu {
+            display: none;
+            position: absolute;
+            bottom: 42px;
+            right: 0;
+            background: #ffffff;
+            min-width: 220px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15), 0 1px 3px rgba(0, 0, 0, 0.1);
+            border: 1px solid var(--divider);
+            z-index: 99;
+            padding: 6px 0;
+            animation: menuFadeIn 0.15s ease-out;
+        }
+
+        @keyframes menuFadeIn {
+            from { opacity: 0; transform: translateY(5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .share-dropdown-menu.show {
+            display: block;
+        }
+
+        .share-menu-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            width: 100%;
+            padding: 10px 16px;
+            border: none;
+            background: transparent;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-primary);
+            text-align: left;
+            cursor: pointer;
+            text-decoration: none;
+            transition: background 0.15s;
+        }
+
+        .share-menu-item:hover {
+            background: var(--hover-bg);
+        }
+
+        .share-menu-item i.fa-whatsapp {
+            color: #25D366;
+            font-size: 16px;
+        }
+        .share-menu-item i.fa-facebook-messenger {
+            color: #006AFF;
+            font-size: 16px;
+        }
+        .share-menu-item i.fa-link {
+            color: var(--brand-primary);
+            font-size: 14px;
+        }
+
+        .comments-section {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .comment-form-container {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .comment-form-container form {
+            flex: 1;
+            display: flex;
+            background: var(--input-bg);
+            border-radius: var(--radius-inner);
+            padding: 4px 14px;
+            align-items: center;
+            border: 1px solid #e4e6eb;
+        }
+
+        .comment-form-container form:focus-within {
+            background: #ffffff;
+            border-color: var(--brand-primary);
+            box-shadow: 0 0 0 1px var(--brand-primary);
+        }
+
+        .comment-input {
+            flex: 1;
+            background: transparent;
+            border: none;
+            padding: 8px 0;
+            font-size: 14px;
+            outline: none;
+            color: var(--text-primary);
+            font-family: inherit;
+        }
+
+        .comment-input::placeholder {
+            color: var(--text-muted);
+        }
+
+        .comment-submit-btn {
+            background: transparent;
+            border: none;
+            color: var(--brand-primary);
+            cursor: pointer;
+            padding: 4px 6px;
+            font-size: 15px;
+            transition: transform 0.1s ease;
+        }
+
+        .comment-submit-btn:hover {
+            color: var(--brand-primary-hover);
+            transform: scale(1.05);
+        }
+
+        .comment-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 4px;
+        }
+
+        .comment-item {
+            display: flex;
+            gap: 10px;
+            align-items: flex-start;
+        }
+
+        .comment-bubble {
+            background: var(--input-bg);
+            border-radius: 16px;
+            padding: 8px 14px;
+            max-width: 88%;
+            position: relative;
+        }
+
+        .comment-user {
+            color: var(--text-primary);
+            font-weight: 600;
+            font-size: 13px;
+            text-decoration: none;
+            display: block;
+            margin-bottom: 2px;
+        }
+
+        .comment-user:hover {
+            text-decoration: underline;
+        }
+
+        .comment-text {
+            font-size: 13.5px;
+            line-height: 1.4;
+            color: #1c1e21;
+        }
+
+        .empty-feed {
+            background: var(--bg-card);
+            padding: 48px 32px;
+            text-align: center;
+            border-radius: var(--radius-main);
+            box-shadow: var(--card-shadow);
+            color: var(--text-secondary);
+            border: 1px solid rgba(0,0,0,0.02);
+        }
+
+        .empty-feed i {
+            font-size: 52px;
+            color: var(--text-muted);
+            margin-bottom: 16px;
+        }
+
+        .empty-feed h2 {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <a href="{% url 'feed' %}" class="navbar-brand">
+            <i class="fa-solid fa-earth-americas"></i> SocialSphere
+        </a>
+        
+        <div class="navbar-links">
+            <span class="nav-item nav-user">
+                <i class="fa-solid fa-circle-user"></i> Hi, {{ request.user.username }}
+            </span>
+            <a href="{% url 'feed' %}" class="nav-item active"><i class="fa-solid fa-house"></i> Feed</a>
+            
+            <a href="{% url 'notifications' %}" class="nav-item">
+                <i class="fa-solid fa-bell"></i> Notifications
+                {% if unread_notifications_count > 0 %}
+                    <span class="badge">{{ unread_notifications_count }}</span>
+                {% endif %}
+            </a>
+
+            <a href="/profile/{{ request.user.id }}/" class="nav-item">Profile</a>
+            <a href="/admin/" class="nav-item">Admin</a>
+            <a href="/logout/" class="nav-item" style="color: #dc3545;"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
+        </div>
+    </nav>
+
+    <div class="app-layout">
+        
+        <aside class="sidebar-left">
+            <div class="sidebar-sticky-box">
+                <div class="sidebar-card">
+                    <ul class="sidebar-menu">
+                        <li>
+                            <a href="/profile/{{ request.user.id }}/">
+                                <div class="menu-label-box">
+                                    <div class="avatar" style="width:28px; height:28px; font-size:11px;">
+                                        {% if request.user.profile.profile_picture %}
+                                            <img src="{{ request.user.profile.profile_picture.url }}" alt="">
+                                        {% else %}
+                                            {{ request.user.username|slice:":1"|upper }}
+                                        {% endif %}
+                                    </div>
+                                    <strong>{{ request.user.username }}</strong>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{% url 'feed' %}" style="background: rgba(24, 119, 242, 0.05); color: var(--brand-primary);">
+                                <div class="menu-label-box">
+                                    <i class="fa-solid fa-newspaper" style="color: var(--brand-primary); font-size: 18px;"></i> 
+                                    <span>Feed Stream</span>
+                                </div>
+                            </a>
+                        </li>
+                        
+                        <li>
+                            <a href="{% url 'notifications' %}">
+                                <div class="menu-label-box">
+                                    <i class="fa-solid fa-bell" style="color: #f1c40f; font-size: 18px;"></i> 
+                                    <span>Notifications</span>
+                                </div>
+                                {% if unread_notifications_count > 0 %}
+                                    <span class="badge">{{ unread_notifications_count }}</span>
+                                {% endif %}
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="/create-post/">
+                                <div class="menu-label-box">
+                                    <i class="fa-solid fa-square-plus" style="color: #e74c3c; font-size: 18px;"></i> 
+                                    <span>Create Post</span>
+                                </div>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </aside>
+
+        <main class="feed-container">
+            
+            <div class="creator-card">
+                <div class="creator-input-row">
+                    <div class="avatar-container">
+                        <div class="avatar">
+                            {% if request.user.profile.profile_picture %}
+                                <img src="{{ request.user.profile.profile_picture.url }}" alt="My Profile avatar">
+                            {% else %}
+                                {{ request.user.username|slice:":1"|upper }}
+                            {% endif %}
+                        </div>
+                        <div class="avatar-plus-btn" onclick="toggleActionMenu(event)">
+                            <i class="fa-solid fa-plus"></i>
+                        </div>
+                        
+                        <div id="actionDropdown" class="action-dropdown-menu">
+                            <button type="button" class="action-dropdown-item" onclick="window.location.href='/create-post/'">
+                                <i class="fa-regular fa-pen-to-square"></i> Post
+                            </button>
+                            <button type="button" class="action-dropdown-item">
+                                <i class="fa-solid fa-circle-plus"></i> Story
+                            </button>
+                            <button type="button" class="action-dropdown-item">
+                                <i class="fa-solid fa-clapperboard"></i> Reel
+                            </button>
+                            <button type="button" class="action-dropdown-item">
+                                <i class="fa-solid fa-video"></i> Live
+                            </button>
+                            <button type="button" class="action-dropdown-item">
+                                <i class="fa-regular fa-comment-dots"></i> Note
+                            </button>
+                            <button type="button" class="action-dropdown-item" style="border-top: 1px solid var(--dropdown-divider); border-radius: 0 0 8px 8px; margin-top: 4px; padding-top: 12px;">
+                                <i class="fa-solid fa-wand-magic-sparkles"></i> AI
+                            </button>
+                        </div>
+                    </div>
+
+                    <a href="/create-post/" class="creator-trigger">
+                        What's on your mind, {{ request.user.username }}?
+                    </a>
+                </div>
+            </div>
+
+            {% for post in posts %}
+            <article class="post-card" id="post-{{ post.id }}">
+                
+                <div class="post-header">
+                    <div class="avatar">
+                        {% if post.user.profile.profile_picture %}
+                            <img src="{{ post.user.profile.profile_picture.url }}" alt="">
+                        {% else %}
+                            {{ post.user.username|slice:":1"|upper }}
+                        {% endif %}
+                    </div>
+                    <div class="post-meta">
+                        <a href="/profile/{{ post.user.id }}/" class="post-author">{{ post.user.username }}</a>
+                        <span class="post-date">
+                            {{ post.created_at }} • <i class="fa-solid fa-earth-americas" style="font-size:11px;" title="Public Broadcast"></i>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="post-content">{{ post.content }}</div>
+
+                {% if post.video %}
+                <div class="post-media-container">
+                    <video class="post-video" controls preload="metadata" playsinline>
+                        <source src="{{ post.video.url }}" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+                {% elif post.image %}
+                <div class="post-media-container">
+                    <img src="{{ post.image.url }}" class="post-image" alt="Uploaded post media attachment">
+                </div>
+                {% endif %}
+
+                <div class="post-stats">
+                    <span class="stat-item">
+                        <span class="stat-item">
+    <span class="stat-icon-badge">
+        <i class="fa-solid fa-thumbs-up"></i>
+    </span>
+
+    <span id="likes-count-{{ post.id }}">
+        {{ post.like_set.count }}
+    </span>
+    Likes
+</span>
+                    <span class="stat-item">
+                        {{ post.comment_set.all|length }} comments
+                    </span>
+                </div>
+
+               <div class="post-actions-row">
+
+    <button
+    type="button"
+    class="action-btn"
+    id="like-btn-{{ post.id }}"
+    onclick="likePost({{ post.id }})"
+>
+    <i class="fa-regular fa-thumbs-up"></i>
+    Like
+</button>
+
+    <button
+        type="button"
+        class="action-btn"
+        onclick="document.getElementById('comment-input-{{ post.id }}').focus();"
+    >
+        <i class="fa-regular fa-comment"></i>
+        Comment
+    </button>
+
+    <div class="share-container">
+
+        <button
+            type="button"
+            class="action-btn"
+            onclick="toggleShareMenu(event, '{{ post.id }}')"
+        >
+            <i class="fa-regular fa-share-from-square"></i>
+            Share
+        </button>
+
+        <div id="share-menu-{{ post.id }}" class="share-dropdown-menu">
+
+            <button
+                type="button"
+                class="share-menu-item"
+                onclick="shareToWhatsApp('{{ post.id }}')"
+            >
+                <i class="fa-brands fa-whatsapp"></i>
+                Share to WhatsApp
+            </button>
+
+            <button
+                type="button"
+                class="share-menu-item"
+                onclick="shareToMessenger('{{ post.id }}')"
+            >
+                <i class="fa-brands fa-facebook-messenger"></i>
+                Share to Messenger
+            </button>
+
+            <button
+                type="button"
+                class="share-menu-item"
+                onclick="copyPostLink('{{ post.id }}')"
+            >
+                <i class="fa-solid fa-link"></i>
+                Copy Link Option
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+                <div class="comments-section">
+                    
+                    <div class="comment-form-container">
+                        <div class="avatar" style="width:32px; height:32px; font-size:12px;">
+                            {% if request.user.profile.profile_picture %}
+                                <img src="{{ request.user.profile.profile_picture.url }}" alt="">
+                            {% else %}
+                                {{ request.user.username|slice:":1"|upper }}
+                            {% endif %}
+                        </div>
+                        <form action="/comment/{{ post.id }}/" method="POST">
+                            {% csrf_token %}
+                            <input type="text" id="comment-input-{{ post.id }}" name="comment" class="comment-input" placeholder="Write a public comment..." required>
+                            <button type="submit" class="comment-submit-btn">
+                                <i class="fa-solid fa-paper-plane"></i>
+                            </button>
+                        </form>
+                    </div>
+
+                    <div class="comment-list">
+                        {% for comment in post.comment_set.all %}
+                        <div class="comment-item">
+                            <div class="avatar" style="width:32px; height:32px; font-size:12px;">
+                                {% if comment.user.profile.profile_picture %}
+                                    <img src="{{ comment.user.profile.profile_picture.url }}" alt="">
+                                
+                                {% else %}
+                                    {{ comment.user.username|slice:":1"|upper }}
+                                {% endif %}
+                            </div>
+                            <div class="comment-bubble">
+                                <a href="/profile/{{ comment.user.id }}/" class="comment-user">{{ comment.user.username }}</a>
+                                <span class="comment-text">{{ comment.text }}</span>
+                            </div>
+                        </div>
+                        {% empty %}
+                        <span style="font-size: 12px; color: var(--text-muted); padding-left: 42px; font-weight: 500;">No comments details logged. Be the first to start the trend!</span>
+                        {% endfor %}
+                    </div>
+
+                </div>
+
+            </article>
+            {% empty %}
+            
+            <div class="empty-feed">
+                <i class="fa-regular fa-folder-open"></i>
+                <h2>Your Hub Stream is Clean</h2>
+                <p style="margin-top: 6px; font-size: 14px;">No community transmissions captured yet. Initiate your first post to activate your social matrix.</p>
+            </div>
+            {% endfor %}
+
+        </main>
+
+        <aside class="sidebar-right">
+            <div class="sidebar-sticky-box">
+                <div class="sidebar-card">
+                    <h4 style="color: var(--text-secondary); margin-bottom: 12px; font-size: 13px; text-transform: uppercase; letter-spacing: 0.5px;">Sponsored Context</h4>
+                    <p style="font-size: 13.5px; line-height: 1.4; color: var(--text-primary);">Your clean Django architecture pairs flawlessly with this layout interface. Ready to broadcast live data across your social layer!</p>
+                </div>
+            </div>
+        </aside>
+
+    </div>
+
+    <script>
+        // Toggle the Main Creation Hub Options Menu Panel
+        function toggleActionMenu(event) {
+            event.stopPropagation();
+            const actionDropdown = document.getElementById('actionDropdown');
+            actionDropdown.classList.toggle('show');
+
+            // Explicitly close any open share dropdown instances to clean layer presentation
+            document.querySelectorAll('.share-dropdown-menu').forEach(menu => menu.classList.remove('show'));
+        }
+
+        // Toggle the specific post dropdown open/close
+        function toggleShareMenu(event, postId) {
+            event.stopPropagation(); // Avoid event bubble side effects
+            
+            // Close creation menu
+            document.getElementById('actionDropdown').classList.remove('show');
+
+            // Close all other share menus first
+            document.querySelectorAll('.share-dropdown-menu').forEach(menu => {
+                if(menu.id !== `share-menu-${postId}`) {
+                    menu.classList.remove('show');
+                }
+            });
+
+            const currentMenu = document.getElementById(`share-menu-${postId}`);
+            currentMenu.classList.toggle('show');
+        }
+
+        // Generate target url route matching project rules
+        function getPostUrl(postId) {
+            return `${window.location.origin}/post/${postId}/`;
+        }
+
+        // WhatsApp redirection logic
+        function shareToWhatsApp(postId) {
+            const url = getPostUrl(postId);
+            const text = encodeURIComponent(`Check out this post on SocialSphere: ${url}`);
+            window.open(`https://api.whatsapp.com/send?text=${text}`, '_blank');
+        }
+
+        // Messenger redirection logic
+        function shareToMessenger(postId) {
+            const url = encodeURIComponent(getPostUrl(postId));
+            window.open(`https://www.facebook.com/dialog/send?link=${url}&app_id=123456789&redirect_uri=${url}`, '_blank');
+        }
+
+        // Clipboard operations execution logic
+        function copyPostLink(postId) {
+            const shareUrl = getPostUrl(postId);
+            
+            if (navigator.clipboard && window.isSecureContext) {
+                navigator.clipboard.writeText(shareUrl).then(() => {
+                    alert("Link successfully copied to clipboard!");
+                }).catch(() => {
+                    fallbackCopyStrategy(shareUrl);
+                });
+            } else {
+                fallbackCopyStrategy(shareUrl);
+            }
+        }
+
+        function fallbackCopyStrategy(text) {
+            const textArea = document.createElement("textarea");
+            textArea.value = text;
+            textArea.style.position = "fixed";
+            document.body.appendChild(textArea);
+            textArea.focus();
+            textArea.select();
+            try {
+                document.execCommand('copy');
+                alert("Link successfully copied to clipboard!");
+            } catch (err) {
+                alert(`Could not copy link automatically. Please manual copy this link:\n${text}`);
+            }
+            document.body.removeChild(textArea);
+        }
+
+        // Document-wide global click event observer to close menus when clicking outside
+        document.addEventListener('click', function() {
+            document.getElementById('actionDropdown').classList.remove('show');
+            document.querySelectorAll('.share-dropdown-menu').forEach(menu => {
+                menu.classList.remove('show');
+            });
+        });
+    </script>
+    <script>
+
+function likePost(postId){
+
+    fetch(`/like/${postId}/`)
+    .then(response => response.json())
+    .then(data => {
+
+        document.getElementById(
+            `likes-count-${postId}`
+        ).innerText = data.likes;
+
+        const button = document.getElementById(
+            `like-btn-${postId}`
+        );
+
+        if(data.liked){
+            button.style.color = "#1877f2";
+        }else{
+            button.style.color = "#65676b";
+        }
+
+    });
+
+}
+
+</script>
+</body>
+</html>

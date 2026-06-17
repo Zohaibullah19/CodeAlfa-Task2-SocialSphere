@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SocialSphere | Notifications</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --brand-primary: #1877f2;
+            --bg-main: #f0f2f5; /* Your existing background color */
+            --bg-card: #ffffff;
+            --text-primary: #050505;
+            --text-secondary: #65676b;
+            --unread-bg: #e7f3ff;
+            --radius-main: 10px;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-main);
+            color: var(--text-primary);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+        }
+        .notifications-container {
+            width: 100%;
+            max-width: 600px;
+            background: var(--bg-card);
+            border-radius: var(--radius-main);
+            box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+            padding: 16px;
+        }
+        .header { display: flex; align-items: center; gap: 15px; margin-bottom: 15px; }
+        .header h2 { margin: 0; }
+        
+        .notification-link { text-decoration: none; color: inherit; display: block; }
+        .notification-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 12px;
+            border-radius: 8px;
+            transition: background 0.2s;
+        }
+        .notification-item.unread { background-color: var(--unread-bg); }
+        .notification-link:hover .notification-item { background: #f2f2f2; }
+
+        /* Avatar and Badge Logic */
+        .avatar-wrapper { position: relative; width: 56px; height: 56px; }
+        .user-avatar { width: 56px; height: 56px; border-radius: 50%; object-fit: cover; background: #ddd; }
+        .icon-badge {
+            position: absolute; bottom: -2px; right: -2px;
+            width: 24px; height: 24px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            color: white; font-size: 12px; border: 3px solid var(--bg-card);
+        }
+
+        .notif-text { font-size: 15px; line-height: 1.3; flex: 1; }
+        .time { font-size: 13px; color: var(--text-secondary); margin-top: 2px; }
+    </style>
+</head>
+<body>
+
+<div class="notifications-container">
+    <div class="header">
+        <a href="{% url 'feed' %}" style="color: var(--text-primary);"><i class="fa-solid fa-arrow-left"></i></a>
+        <h2>Notifications</h2>
+    </div>
+
+    {% for notif in notifications %}
+        {% if notif.notification_type == 'follow' %}
+            <a href="/profile/{{ notif.sender.id }}/" class="notification-link">
+        {% elif notif.post %}
+            <a href="{% url 'post_detail' notif.post.id %}" class="notification-link">
+        {% else %}
+            <a href="#" class="notification-link">
+        {% endif %}
+
+        <div class="notification-item {% if not notif.is_read %}unread{% endif %}">
+            <div class="avatar-wrapper">
+                <img src="https://ui-avatars.com/api/?name={{ notif.sender.username }}" class="user-avatar">
+                
+                <div class="icon-badge" style="background: 
+                    {% if notif.notification_type == 'like' %}#e42645
+                    {% elif notif.notification_type == 'comment' %}#1877f2
+                    {% elif notif.notification_type == 'follow' %}#45bd62
+                    {% endif %};">
+                    <i class="fa-solid {% if notif.notification_type == 'like' %}fa-thumbs-up{% elif notif.notification_type == 'comment' %}fa-comment{% elif notif.notification_type == 'follow' %}fa-user{% endif %}"></i>
+                </div>
+            </div>
+
+            <div class="notif-text">
+                <b>{{ notif.sender.get_full_name|default:notif.sender.username }}</b> 
+                {% if notif.notification_type == 'like' %} liked your post.
+                {% elif notif.notification_type == 'comment' %} commented: "{{ notif.post.comment_set.last.text|truncatechars:20 }}"
+                {% elif notif.notification_type == 'follow' %} started following you.
+                {% endif %}
+                <div class="time">{{ notif.created_at|timesince }} ago</div>
+            </div>
+        </div>
+        </a>
+    {% empty %}
+        <p style="text-align: center; color: var(--text-secondary);">No new notifications.</p>
+    {% endfor %}
+</div>
+
+</body>
+</html>
