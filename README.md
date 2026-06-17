@@ -3,14 +3,6 @@
 
 
 
-
-
-
-
-
-
-
-
 📖 Project Overview
 
 SocialSphere is a modern social media platform built using Django, HTML, CSS, JavaScript, and SQLite. The application enables users to connect, share content, interact with posts, and build their online presence through customizable profiles.
