@@ -1,190 +1,155 @@
-🚀 SocialSphere – Modern Social Media Platform
+# 🚀 SocialSphere – Mini Social Media Platform
 
+SocialSphere is a modern social networking platform developed using Django as part of the CodeAlfa Internship Program (Task 2).
 
+The platform allows users to create profiles, share posts, interact through likes and comments, follow other users, receive notifications, and customize their profiles with profile pictures and cover photos.
 
+---
 
-📖 Project Overview
+## 📌 Features
 
-SocialSphere is a modern social media platform built using Django, HTML, CSS, JavaScript, and SQLite. The application enables users to connect, share content, interact with posts, and build their online presence through customizable profiles.
+### 👤 User Management
 
-The platform provides a complete social networking experience including user authentication, profile management, media sharing, likes, comments, follow system, notifications, and an administrative dashboard.
+* User Registration
+* User Login & Logout
+* Secure Authentication
+* Profile Editing
+* Profile Picture Upload
+* Cover Photo Upload
 
-This project was developed as part of CodeAlfa Internship – Task 2 (Mini Social Media Platform) to demonstrate full-stack web development skills and practical implementation of social networking features.
+### 📝 Posts System
 
-✨ Key Features
-👤 User Authentication
-Secure User Registration
-User Login & Logout
-Session Management
-Protected Routes
-🧑 User Profiles
-Custom User Profiles
-Profile Picture Upload
-Cover Photo Upload
-Personal Bio Section
-Followers & Following Count
-Edit Profile Functionality
-📝 Social Posts
-Create Text Posts
-Upload Images
-Upload Videos
-Dynamic News Feed
-Post Timestamp Tracking
-❤️ Social Interactions
-Like & Unlike Posts
-Comment on Posts
-Follow & Unfollow Users
-View Followers List
-View Following List
-🔔 Notification System
-Like Notifications
-Comment Notifications
-Follow Notifications
-Notification Center
-🛠 Admin Dashboard
-User Management
-Profile Management
-Posts Management
-Comments Management
-Likes Management
-Followers Management
-🏗 Technology Stack
-Frontend
-HTML5
-CSS3
-JavaScript
-Backend
-Python
-Django
-Database
-SQLite3
-Media Management
-Django Media Files
-Image Upload Handling
-Video Upload Handling
-📂 Project Structure
-social-media-app/
-│
-├── backend/
-│   ├── settings.py
-│   ├── urls.py
-│   └── wsgi.py
-│
-├── posts/
-│   ├── models.py
-│   ├── views.py
-│   ├── urls.py
-│   └── migrations/
-│
-├── users/
-│   ├── models.py
-│   ├── views.py
-│   ├── urls.py
-│   └── migrations/
-│
-├── templates/
-│   ├── login.html
-│   ├── register.html
-│   ├── feed.html
-│   ├── profile.html
-│   ├── profile_edit.html
-│   ├── create_post.html
-│   ├── notifications.html
-│   └── post_detail.html
-│
-├── media/
-│   ├── profiles/
-│   ├── covers/
-│   └── posts/
-│
-├── manage.py
-├── requirements.txt
-└── README.md
-🗄 Database Models
+* Create Text Posts
+* Upload Images
+* Upload Videos
+* View User Posts
+* Feed Timeline
 
-The application manages the following entities:
+### ❤️ Social Interaction
 
-User
-Profile
-Post
-Comment
-Like
-Follow
-Notification
+* Like / Unlike Posts
+* Comment on Posts
+* Follow / Unfollow Users
+* Followers & Following Lists
 
-These models work together to provide a complete social networking experience.
+### 🔔 Notifications
 
-🚀 Installation Guide
-Clone Repository
-git clone https://github.com/your-username/CodeAlfa-Task2-SocialSphere.git
-Navigate to Project
+* Like Notifications
+* Comment Notifications
+* Follow Notifications
+* Notification History
+
+### ⚙️ Admin Features
+
+* Django Admin Panel
+* Manage Users
+* Manage Posts
+* Manage Comments
+* Manage Followers
+* Manage Likes
+
+---
+
+## 🛠️ Technology Stack
+
+### Frontend
+
+* HTML5
+* CSS3
+* JavaScript
+* Font Awesome
+
+### Backend
+
+* Python
+* Django
+
+### Database
+
+* SQLite3
+
+---
+
+## 📂 Project Structure
+
+backend/
+posts/
+users/
+templates/
+manage.py
+README.md
+
+---
+
+## 🚀 Installation
+
+Clone the repository:
+
+git clone https://github.com/Zohaibullah19/CodeAlfa-Task2-SocialSphere.git
+
+Navigate to the project:
+
 cd CodeAlfa-Task2-SocialSphere
-Create Virtual Environment
+
+Create virtual environment:
+
 python -m venv venv
-Activate Virtual Environment
+
+Activate virtual environment:
+
+Windows:
 venv\Scripts\activate
-Install Dependencies
+
+Install dependencies:
+
 pip install -r requirements.txt
-Run Database Migrations
-python manage.py makemigrations
+
+Run migrations:
+
 python manage.py migrate
-Create Admin User
-python manage.py createsuperuser
-Start Development Server
+
+Start server:
+
 python manage.py runserver
-Open Browser
+
+Open:
+
 http://127.0.0.1:8000/
-🎯 Learning Outcomes
 
-This project demonstrates practical experience in:
+---
 
-Django Framework Development
-Authentication & Authorization
-Database Design & Relationships
-CRUD Operations
-Media File Handling
-User Profile Management
-Social Networking Systems
-Frontend UI Development
-Backend Logic Implementation
-Full-Stack Web Development
-🌟 Future Enhancements
-Real-Time Chat System
-Direct Messaging
-Stories Feature
-Dark Mode
-User Search System
-Real-Time Notifications
-Friend Requests
-Post Sharing Analytics
-WebSocket Integration
-📸 Core Functionalities Demonstrated
+## 🎯 Internship Task Requirements Covered
 
-✅ User Registration & Login
-✅ Profile Management
-✅ Profile & Cover Photos
-✅ Create Posts
-✅ Image Uploads
-✅ Video Uploads
+✅ User Profiles
+
+✅ Posts & Comments
+
 ✅ Like System
-✅ Comment System
-✅ Follow/Unfollow System
-✅ Notifications
-✅ Followers & Following Lists
-✅ Django Admin Panel
 
-👨‍💻 Author
+✅ Follow System
+
+✅ User Authentication
+
+✅ Database Integration
+
+✅ Responsive Interface
+
+---
+
+## 👨‍💻 Developer
 
 Zohaib Wazir
+
 Software Engineering Student
+
 City University Peshawar
+
 Web & App Developer
 
-🏆 Internship Project
 CodeAlfa Internship – Task 2
 
-Mini Social Media Platform
+---
 
-A full-stack social networking application developed using Django that allows users to create profiles, share content, interact through likes and comments, follow other users, and receive notifications in a modern social media environment.
+## 📜 License
 
-⭐ If you found this project interesting, consider giving it a star on GitHub!
+This project was developed for educational and internship purposes under the CodeAlfa Internship Program.
