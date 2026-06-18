@@ -1,144 +1,267 @@
 # 🚀 SocialSphere – Mini Social Media Platform
 
-SocialSphere is a modern social networking platform developed using Django as part of the CodeAlfa Internship Program (Task 2).
+A modern social networking platform developed using **Django, HTML, CSS, and JavaScript** as part of the **CodeAlfa Internship Program – Task 2**.
 
-The platform allows users to create profiles, share posts, interact through likes and comments, follow other users, receive notifications, and customize their profiles with profile pictures and cover photos.
+SocialSphere allows users to connect, share content, interact with others, build profiles, and engage through a complete social media experience.
 
 ---
 
-## 📌 Features
+# 📌 Project Overview
 
-### 👤 User Management
+SocialSphere is a feature-rich social networking application where users can:
 
-* User Registration
-* User Login & Logout
-* Secure Authentication
-* Profile Editing
+* Create and manage personal profiles
+* Publish text, image, and video posts
+* Like and comment on posts
+* Follow and unfollow other users
+* Receive notifications for social interactions
+* Share content through multiple sharing options
+* Customize profile and cover photos
+
+---
+
+# ✅ CodeAlfa Task Requirements Completed
+
+The following internship requirements have been fully implemented:
+
+### 1. User Profiles
+
+✔ User Registration
+
+✔ User Login
+
+✔ User Logout
+
+✔ Profile Page
+
+✔ Profile Editing
+
+### 2. Posts & Comments
+
+✔ Create Posts
+
+✔ View Posts
+
+✔ Comment on Posts
+
+✔ Post Feed System
+
+### 3. Like / Follow System
+
+✔ Like Posts
+
+✔ Unlike Posts
+
+✔ Follow Users
+
+✔ Unfollow Users
+
+### 4. Database Integration
+
+✔ Users Database
+
+✔ Posts Database
+
+✔ Comments Database
+
+✔ Followers Database
+
+---
+
+# 🚀 Additional Features Implemented
+
+Beyond the internship requirements, the following advanced features were added:
+
+### 👤 Profile Management
+
 * Profile Picture Upload
 * Cover Photo Upload
+* Professional Profile Layout
+* Bio / Headline Section
+* Followers Counter
+* Following Counter
+* Post Counter
 
-### 📝 Posts System
+### 📝 Post System
 
-* Create Text Posts
-* Upload Images
-* Upload Videos
-* View User Posts
-* Feed Timeline
+* Text Posts
+* Image Posts
+* Video Posts
+* Media Preview Support
+* User Post History
 
-### ❤️ Social Interaction
+### ❤️ Social Interactions
 
-* Like / Unlike Posts
-* Comment on Posts
-* Follow / Unfollow Users
-* Followers & Following Lists
+* Like / Unlike Functionality
+* Comment System
+* Follow / Unfollow System
 
-### 🔔 Notifications
+### 🔔 Notification System
 
 * Like Notifications
 * Comment Notifications
 * Follow Notifications
-* Notification History
+* Notification Center
 
-### ⚙️ Admin Features
+### 📤 Sharing System
 
-* Django Admin Panel
+* Share to WhatsApp
+* Share to Messenger
+* Copy Post Link
+* Share Menu Interface
+
+### 👥 Community Features
+
+* Followers List Page
+* Following List Page
+* User Discovery Through Profiles
+
+### ⚙️ Administration
+
+* Django Admin Dashboard
 * Manage Users
 * Manage Posts
 * Manage Comments
 * Manage Followers
 * Manage Likes
+* Manage Profiles
 
 ---
 
-## 🛠️ Technology Stack
+# 🛠️ Technology Stack
 
-### Frontend
+## Frontend
 
 * HTML5
 * CSS3
 * JavaScript
 * Font Awesome
 
-### Backend
+## Backend
 
 * Python
 * Django
 
-### Database
+## Database
 
 * SQLite3
 
 ---
 
-## 📂 Project Structure
+# 📂 Project Structure
 
+```text
 backend/
 posts/
 users/
 templates/
+media/
 manage.py
 README.md
+```
 
 ---
 
-## 🚀 Installation
+# 🚀 Installation Guide
 
-Clone the repository:
+## Clone Repository
 
+```bash
 git clone https://github.com/Zohaibullah19/CodeAlfa-Task2-SocialSphere.git
+```
 
-Navigate to the project:
+## Move Into Project
 
+```bash
 cd CodeAlfa-Task2-SocialSphere
+```
 
-Create virtual environment:
+## Create Virtual Environment
 
+```bash
 python -m venv venv
+```
 
-Activate virtual environment:
+## Activate Environment
 
-Windows:
+### Windows
+
+```bash
 venv\Scripts\activate
+```
 
-Install dependencies:
+### Linux / Mac
 
-pip install -r requirements.txt
+```bash
+source venv/bin/activate
+```
 
-Run migrations:
+## Install Dependencies
 
+```bash
+pip install django pillow
+```
+
+## Run Migrations
+
+```bash
+python manage.py makemigrations
 python manage.py migrate
+```
 
-Start server:
+## Start Development Server
 
+```bash
 python manage.py runserver
+```
 
 Open:
 
+```text
 http://127.0.0.1:8000/
+```
 
 ---
 
-## 🎯 Internship Task Requirements Covered
+# 🎯 Core Features Summary
 
-✅ User Profiles
-
-✅ Posts & Comments
-
-✅ Like System
-
-✅ Follow System
-
-✅ User Authentication
-
-✅ Database Integration
-
-✅ Responsive Interface
+| Feature           | Status |
+| ----------------- | ------ |
+| User Registration | ✅      |
+| User Login        | ✅      |
+| User Logout       | ✅      |
+| User Profiles     | ✅      |
+| Profile Editing   | ✅      |
+| Profile Pictures  | ✅      |
+| Cover Photos      | ✅      |
+| Create Posts      | ✅      |
+| Image Upload      | ✅      |
+| Video Upload      | ✅      |
+| Comments          | ✅      |
+| Likes             | ✅      |
+| Follow Users      | ✅      |
+| Notifications     | ✅      |
+| Share Posts       | ✅      |
+| Followers List    | ✅      |
+| Following List    | ✅      |
+| Django Admin      | ✅      |
 
 ---
 
-## 👨‍💻 Developer
+# 📸 Platform Highlights
 
-Zohaib Wazir
+* Facebook-inspired UI Design
+* Responsive Layout
+* Professional Social Feed
+* Interactive Notification System
+* Media Sharing Support
+* Modern User Experience
+
+---
+
+# 👨‍💻 Developer
+
+**Zohaib Wazir**
 
 Software Engineering Student
 
@@ -146,10 +269,10 @@ City University Peshawar
 
 Web & App Developer
 
-CodeAlfa Internship – Task 2
+CodeAlfa Internship Program
 
 ---
 
-## 📜 License
+# 📜 License
 
 This project was developed for educational and internship purposes under the CodeAlfa Internship Program.
